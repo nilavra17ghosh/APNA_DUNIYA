@@ -1,0 +1,175 @@
+@import "../../_globalColor";
+
+.education-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 20px;
+  margin: 20px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.education-card:hover + .education-card-border {
+  border-color: $educationCardBorder;
+  width: 100%;
+  -webkit-transition: width 0.6s ease-in-out;
+  -moz-transition: width 0.6s ease-in-out;
+  -o-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
+}
+
+.education-card-border {
+  height: 1px;
+  width: 90%;
+  border-top: 2px solid $lightBorder1;
+  margin: 20px auto;
+  -webkit-transition: width 0.6s ease-in-out;
+  -moz-transition: width 0.6s ease-in-out;
+  -o-transition: width 0.6s ease-in-out;
+  transition: width 0.6s ease-in-out;
+}
+
+.education-card-left {
+  flex: 0 0 auto;
+  margin-right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.education-text-school {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.education-roundedimg {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  background-color: white;
+  padding: 5px;
+}
+
+.education-card-right {
+  flex: 1;
+  min-width: 0;
+}
+
+.education-text-subHeader {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.education-text-duration {
+  color: var(--text-color);
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.education-text-desc {
+  color: var(--text-color);
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.education-text-bullets {
+  color: var(--text-color);
+  
+  > ul {
+    margin: 0;
+    padding-left: 20px;
+    
+    li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+      font-size: 16px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/* Media Query */
+
+@media (max-width: 1380px) {
+  .education-card {
+    padding: 15px;
+  }
+  
+  .education-text-school {
+    font-size: 24px;
+  }
+  
+  .education-text-subHeader {
+    font-size: 18px;
+  }
+  
+  .education-roundedimg {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .education-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 15px;
+  }
+
+  .education-card-left {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .education-card-right {
+    width: 100%;
+  }
+
+  .education-text-bullets > ul {
+    text-align: left;
+    width: 100%;
+    max-width: none;
+    padding-left: 30px;
+  }
+
+  .education-roundedimg {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .education-text-school {
+    font-size: 22px;
+  }
+  
+  .education-text-subHeader {
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,49 @@
+@import "../../_globalColor";
+
+.education-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  position: relative;
+}
+
+.education-heading {
+  font-size: 56px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 0 40px 0;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.education-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+@media (max-width: 1380px) {
+  .education-heading {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .education-section {
+    padding: 40px 15px;
+  }
+
+  .education-heading {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+
+  .education-card-container {
+    gap: 20px;
+  }
+}

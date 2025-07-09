@@ -1,0 +1,54 @@
+@import "../../_globalColor";
+
+.main-button {
+  background-color: #2962ff;
+  border: solid 1px #2962ff;
+  color: white;
+  font-weight: 600;
+  width: max-content;
+  padding: 13px 22px;
+  margin: 0px 10px;
+  border-radius: 6px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    background-color: #0039cb;
+    border: solid 1px #0039cb;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(41, 98, 255, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .main-button {
+    font-size: 15px;
+    padding: 12px 18px;
+    margin: 0px 8px;
+  }
+}
+
+/* Dark Mode */
+.dark-mode {
+  .main-button {
+    background-color: #4dabf7;
+    border: solid 1px #4dabf7;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #339af0;
+      border: solid 1px #339af0;
+      box-shadow: 0 5px 15px rgba(77, 171, 247, 0.3);
+    }
+  }
+}
