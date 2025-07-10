@@ -79,10 +79,6 @@ This portfolio is PWA (Progressive Web App) enabled. Users can install it on the
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - Design inspiration from various portfolio templates
