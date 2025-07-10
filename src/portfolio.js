@@ -182,7 +182,7 @@ const workExperiences = {
     {
       role: "Research Intern",
       company: "IIT Bombay",
-      companylogo: require("./assets/images/facebookLogo.png"),
+      companylogo: require("./assets/images/iitbombay.webp"),
       date: "June 2025 – Present",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       descBullets: [
