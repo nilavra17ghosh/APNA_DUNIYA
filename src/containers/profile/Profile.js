@@ -51,6 +51,6 @@ export default function Profile() {
       </Suspense>
     );
   } else {
-    return <Contact />;
+    return null;
   }
 }

@@ -33,7 +33,7 @@ const greeting = {
 // Social Media Links
 
 const socialMediaLinks = {
-  github: "https://github.com/nilvra17aghosh",
+  github: "https://github.com/nilavra17ghosh",
   linkedin: "https://www.linkedin.com/in/nilavra17ghosh/",
   gmail: "nilavraghosh17@gmail.com",
   // gitlab: "https://gitlab.com/saadpasta",
@@ -133,21 +133,24 @@ const educationInfo = {
     {
       schoolName: "International Institute of Information Technology, Hyderabad",
       logo: require("./assets/images/iiitLogo.webp"),
-      subHeader: "Batchelor of Technology in Electronics and Communication Engineering",
-      duration: "July 2023 - Present ",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      subHeader: "Bachelor of Technology in Electronics and Communication Engineering",
+      duration: "July 2023 - Present",
+      desc: "Studying Electronics and Communication Engineering with focus on signal processing and embedded systems.",
       descBullets: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        "Participating in research projects in signal processing and embedded systems",
+        "Active member of the Electronics Club and Robotics Interest Group"
       ]
     },
     {
       schoolName: "Jawahar Navodaya Vidyalaya",
       logo: require("./assets/images/jnvLogo.webp"),
-      subHeader: "High School",
+      subHeader: "High School Diploma",
       duration: "June 2016 - June 2023",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      descBullets: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit"]
+      desc: "Completed high school education with focus on Science and Mathematics, graduating with distinction.",
+      descBullets: [
+        "Secured 95% in PCM (Physics, Chemistry, Mathematics) group in final examinations",
+        "Represented school in national level science exhibitions and competitions"
+      ]
     }
   ]
 };
@@ -159,15 +162,23 @@ const techStack = {
   experience: [
     {
       Stack: "Frontend/Design", //Insert stack or technology you have experience in
-      progressPercentage: "70%" //Insert relative proficiency in percentage
+      progressPercentage: "85%", //Insert relative proficiency in percentage
+      icon: "fas fa-code" // Font Awesome icon class
     },
     {
       Stack: "AI/ML",
-      progressPercentage: "60%"
+      progressPercentage: "75%",
+      icon: "fas fa-brain" // Font Awesome icon class for AI
     },
     {
       Stack: "Programming",
-      progressPercentage: "60%"
+      progressPercentage: "80%",
+      icon: "fas fa-laptop-code" // Font Awesome icon class for programming
+    },
+    {
+      Stack: "UI/UX Design",
+      progressPercentage: "70%",
+      icon: "fas fa-pencil-ruler" // Font Awesome icon class for design
     }
   ],
   displayCodersrank: false // Set true to display codersrank badges section need to changes your username in src/containers/skillProgress/skillProgress.js:17:62, defaults to false
@@ -250,14 +261,14 @@ const talkSection = {
   display: false // Set false to hide this section, defaults to true
 };
 
-// Podcast Section
-const podcastSection = {
-  title: "Podcasts",
-  subtitle: "COMING SOON!",
-  // Keep this section for future implementation
-  // The warning serves as an indicator that this feature is planned
-  display: false // Set to true when ready to display
-};
+// // Podcast Section
+// const podcastSection = {
+//   title: "Podcasts",
+//   subtitle: "COMING SOON!",
+//   // Keep this section for future implementation
+//   // The warning serves as an indicator that this feature is planned
+//   display: false // Set to true when ready to display
+// };
 
 // Resume Section
 const resumeSection = {

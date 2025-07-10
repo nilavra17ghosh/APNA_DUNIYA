@@ -10,7 +10,7 @@
 }
 
 /* Fix visible slider checkbox */
-input {
+.switch input {
   transform: scale(0.5);
   opacity: 0;
   width: 0;

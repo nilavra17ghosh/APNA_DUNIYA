@@ -1,6 +1,95 @@
 @import "../../_globalColor";
 
+// Define animations and background effects
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(140, 67, 206, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(140, 67, 206, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(140, 67, 206, 0);
+  }
+}
+
+:root {
+  --formBg: #ffffff;
+  --formText: #333333;
+  --textColor: #000000;
+  --cardBorder: #e0e0e0;
+  --actionButtonBg: #{$actionButtonBg};
+  --actionButtonHover: #{$actionButtonHover};
+  --actionButtonText: #{$actionButtonText};
+  --mainBackground: #{$lightBackground1};
+  --animationAccent: #{$animationAccentLight};
+}
+
+.dark-mode {
+  --formBg: #1a202c;
+  --formText: #ffffff;
+  --textColor: #ffffff;
+  --cardBorder: #4a5568;
+  --actionButtonBg: #{$actionButtonBg};
+  --actionButtonHover: #{$actionButtonHover};
+  --actionButtonText: #{$actionButtonText};
+  --mainBackground: #{$darkBackground};
+  --animationAccent: #{$animationAccentDark};
+}
+
+// Main container with animated background
+.main#contact {
+  position: relative;
+  background: var(--mainBackground);
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 15% 50%, var(--animationAccent) 0%, transparent 25%),
+               radial-gradient(circle at 85% 30%, var(--animationAccent) 0%, transparent 30%);
+    opacity: 0.8;
+    z-index: 0;
+    animation: gradientAnimation 15s ease infinite;
+  }
+}
+
 .contact-div-main {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 3fr 2fr;
   gap: 40px;
@@ -49,6 +138,21 @@
   margin-bottom: 1rem;
 }
 
+.contact-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+  font-size: 100px;
+  background-color: rgba(108, 99, 255, 0.1);
+  border-radius: 16px;
+
+  span {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -65,15 +169,15 @@
 .form-label {
   font-size: 16px;
   font-weight: 500;
-  color: #fff;
+  color: var(--textColor);
 }
 
 .form-input {
   padding: 13px 16px;
-  border: 2px solid #4a5568;
+  border: 2px solid var(--cardBorder, #4a5568);
   border-radius: 8px;
-  background-color: #1a202c;
-  color: #fff;
+  background-color: var(--formBg, #1a202c);
+  color: var(--formText, #fff);
   font-size: 16px;
   transition: all 0.3s ease;
   width: 100%;
@@ -104,15 +208,18 @@ textarea.form-input {
 }
 
 .required {
-  color: #ff6b6b;
-  margin-left: 4px;
+  color: #dc3545;
+  font-weight: bold;
 }
 
 .optional {
-  color: #a0aec0;
+  color: #6c757d;
   font-size: 14px;
   font-weight: normal;
-  margin-left: 4px;
+}
+
+.dark-mode .optional {
+  color: #8b8b8b;
 }
 
 .main-button {
@@ -137,6 +244,211 @@ textarea.form-input {
   &:active {
     transform: translateY(0);
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.submit-status {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  animation: fadeIn 0.5s ease;
+
+  &.success {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+  }
+
+  &.error {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+}
+
+.manual-email-button, .try-again-button {
+  background: linear-gradient(135deg, $buttonColor, $buttonHover);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin-top: 15px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba($buttonColor, 0.3);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, darken($buttonColor, 10%), darken($buttonHover, 10%));
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba($buttonColor, 0.5);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba($buttonColor, 0.4);
+  }
+}
+
+.try-again-button {
+  background-color: $errorColor;
+  animation: none;
+  
+  &:hover {
+    background-color: darken($errorColor, 10%);
+  }
+}
+
+.success-actions, .error-actions {
+  margin-top: 15px;
+  animation: fadeIn 0.5s ease;
+}
+
+.error-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.fallback-note {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 12px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.manual-email-button.secondary {
+  background: transparent;
+  border: 2px solid $buttonColor;
+  color: $buttonColor;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba($buttonColor, 0.1), rgba($buttonHover, 0.15));
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    border-radius: 28px;
+  }
+  
+  &:hover {
+    background-color: rgba(140, 67, 206, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--actionButtonBg);
+  }
+}
+
+// Styles for mailto links and contact info
+.contact-info {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contact-method {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.contact-value {
+  color: $buttonColor;
+  text-decoration: none;
+  position: relative;
+  padding: 3px 5px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba($buttonColor, 0.1);
+    color: $buttonHover;
+    transform: translateY(-2px);
+  }
+  
+  &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: $buttonHover;
+    transition: width 0.3s ease;
+  }
+  
+  &:hover:after {
+    width: 100%;
+  }
+}
+
+.email-fallback {
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  p:first-child {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: $subTitle;
+  }
+}
+
+.direct-contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.contact-method i {
+  margin-right: 6px;
+  color: $buttonColor;
+  font-size: 0.9em;
 }
 
 /* Dark mode specific styles */
@@ -171,5 +483,9 @@ textarea.form-input {
 
   .optional {
     color: #a0aec0;
+  }
+
+  .dark-optional {
+    color: #8b8b8b;
   }
 }

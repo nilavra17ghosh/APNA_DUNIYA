@@ -1,0 +1,46 @@
+/* Logo Helper Styles */
+.logo-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Additional logo styling for specific logos */
+.education-card-left img[alt="International Institute of Information Technology, Hyderabad"] {
+  padding: 10px;
+}
+
+.education-card-left img[alt="Jawahar Navodaya Vidyalaya"] {
+  padding: 8px;
+}
+
+/* General helper class for fixing logos */
+.logo-bg-circle {
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* Logo specific fixes - add more as needed */
+.logo-fix-contrast {
+  filter: contrast(1.2);
+}
+
+.logo-fix-brightness {
+  filter: brightness(1.1);
+}
+
+.logo-fix-padding-sm {
+  padding: 8px !important;
+}
+
+.logo-fix-padding-md {
+  padding: 12px !important;
+}
+
+.logo-fix-padding-lg {
+  padding: 15px !important;
+}

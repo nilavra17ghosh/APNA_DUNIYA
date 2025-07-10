@@ -1,5 +1,29 @@
 @import "./globalColor";
 
+/* Global animations */
+@keyframes backgroundTransition {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Global Styles */
 * {
   box-sizing: border-box;
@@ -20,6 +44,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode {
+  background: $lightBackground2;
+  color: $textColor;
+  background-image: 
+    radial-gradient(circle at 10% 20%, $animationAccentLight 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, $animationAccentLight 0%, transparent 20%);
+  background-attachment: fixed;
+  background-size: 200% 200%;
+  animation: backgroundTransition 25s ease infinite;
+}
+
+body.dark-mode {
+  background: $darkBackgroundGradient;
+  color: $textColorDark;
+  background-image: 
+    radial-gradient(circle at 10% 20%, $animationAccentDark 0%, transparent 25%),
+    radial-gradient(circle at 90% 80%, $animationAccentDark 0%, transparent 25%);
+  background-attachment: fixed;
+  background-size: 200% 200%;
+  animation: backgroundTransition 25s ease infinite;
 }
 
 .App {

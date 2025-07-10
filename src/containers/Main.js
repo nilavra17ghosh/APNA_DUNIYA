@@ -11,6 +11,7 @@ import Blogs from "./blogs/Blogs";
 import Footer from "../components/footer/Footer";
 import Education from "./education/Education";
 import Profile from "./profile/Profile";
+import Contact from "./contact/Contact";
 import {StyleProvider} from "../contexts/StyleContext";
 import {useLocalStorage} from "../hooks/useLocalStorage";
 import "./Main.scss";
@@ -35,6 +36,7 @@ const Main = () => {
         <Projects />
         <Achievement />
         <Blogs />
+        <Contact />
         <Profile />
         <Footer />
         <ScrollToTopButton />

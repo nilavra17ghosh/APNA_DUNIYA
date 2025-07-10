@@ -1,0 +1,9 @@
+@echo off
+echo Removing node_modules folder...
+rmdir /s /q node_modules
+echo Removing package-lock.json...
+del package-lock.json
+echo Installing dependencies...
+npm install
+echo Dependencies reinstalled successfully!
+pause

@@ -1,5 +1,6 @@
 import React, {createRef, useContext} from "react";
 import "./EducationCard.scss";
+import "../logoStyles/LogoStyles.scss";
 import StyleContext from "../../contexts/StyleContext";
 
 export default function EducationCard({school}) {
@@ -24,13 +25,18 @@ export default function EducationCard({school}) {
       <div className="education-card">
         {school.logo && (
           <div className="education-card-left">
-            <img
-              crossOrigin={"anonymous"}
-              ref={imgRef}
-              className="education-roundedimg"
-              src={school.logo}
-              alt={school.schoolName}
-            />
+            <div className="logo-container">
+              <img
+                ref={imgRef}
+                className={`education-roundedimg logo-bg-circle ${
+                  school.schoolName.includes("International") ? "logo-fix-padding-lg" : 
+                  school.schoolName.includes("Jawahar") ? "logo-fix-padding-md" : ""
+                }`}
+                src={school.logo}
+                alt={school.schoolName}
+                loading="lazy"
+              />
+            </div>
           </div>
         )}
         <div className="education-card-right">
