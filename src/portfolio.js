@@ -137,8 +137,7 @@ const educationInfo = {
       duration: "July 2023 - Present",
       desc: "Studying Electronics and Communication Engineering with focus on signal processing and embedded systems.",
       descBullets: [
-        "Participating in research projects in signal processing and embedded systems",
-        "Active member of the Electronics Club and Robotics Interest Group"
+        "Coming soon...."
       ]
     },
     {
@@ -148,8 +147,7 @@ const educationInfo = {
       duration: "June 2016 - June 2023",
       desc: "Completed high school education with focus on Science and Mathematics, graduating with distinction.",
       descBullets: [
-        "Secured 95% in PCM (Physics, Chemistry, Mathematics) group in final examinations",
-        "Represented school in national level science exhibitions and competitions"
+        "Coming soon...."
       ]
     }
   ]
