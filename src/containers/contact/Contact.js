@@ -1,12 +1,12 @@
 import React, { useState, useContext, useRef } from "react";
 import "./Contact.scss";
 import SocialMedia from "../../components/socialMedia/SocialMedia";
-import { illustration, contactInfo } from "../../portfolio";
-import { Fade } from "react-reveal";
+import { contactInfo } from "../../portfolio";
+// import { Fade } from "react-reveal";
 import email from "../../assets/lottie/email";
 import DisplayLottie from "../../components/displayLottie/DisplayLottie";
 import StyleContext from "../../contexts/StyleContext";
-import emailjs from '@emailjs/browser';
+// import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const { isDark } = useContext(StyleContext);
