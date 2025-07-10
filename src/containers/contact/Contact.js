@@ -1,10 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Contact.scss";
 import SocialMedia from "../../components/socialMedia/SocialMedia";
 import { contactInfo } from "../../portfolio";
 import email from "../../assets/lottie/email";
 import DisplayLottie from "../../components/displayLottie/DisplayLottie";
 import StyleContext from "../../contexts/StyleContext";
+import useOTPVerification from "./useOTPVerification";
+
+// Simple toast component
+const Toast = ({ message, onClose }) => {
+  if (!message) return null;
+  
+  return (
+    <div className="toast">
+      {message}
+      <button onClick={onClose}>×</button>
+    </div>
+  );
+};
 
 export default function Contact() {
   const { isDark } = useContext(StyleContext);
@@ -14,19 +27,76 @@ export default function Contact() {
     phone: "",
     message: ""
   });
+  
   const [loading, setLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({
     submitted: false,
     success: false,
     message: ""
   });
+  
+  // Toast state
+  const [toast, setToast] = useState("");
+  
+  // Auto-dismiss toast after 5 seconds
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(""), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
+  // Validation functions
+  const validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
+  
+  const validatePhone = (phone) => {
+    const re = /^\d{10}$/;
+    return re.test(String(phone).replace(/[^\d]/g, ''));
+  };
+  
+  // OTP hooks
+  const emailOTP = useOTPVerification({ 
+    validate: validateEmail, 
+    label: "email" 
+  });
+  
+  const phoneOTP = useOTPVerification({ 
+    validate: validatePhone, 
+    label: "phone" 
+  });
+  
+  // Handle input changes and reset OTP only if value changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      // Only reset OTP if value changes
+      if (name === "email" && prev.email !== value) emailOTP.reset();
+      if (name === "phone" && prev.phone !== value) phoneOTP.reset();
+      return { ...prev, [name]: value };
+    });
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     if (!formData.name || !formData.message) {
-      alert("Please fill in all required fields (Name and Message).");
+      setToast("Please fill in all required fields (Name and Message).");
+      setLoading(false);
+      return;
+    }
+    
+    if (formData.email && !emailOTP.verified) {
+      setToast("Please verify your email before submitting.");
+      setLoading(false);
+      return;
+    }
+    
+    if (formData.phone && !phoneOTP.verified) {
+      setToast("Please verify your phone number before submitting.");
       setLoading(false);
       return;
     }
@@ -60,6 +130,8 @@ export default function Contact() {
           phone: "",
           message: ""
         });
+        emailOTP.reset();
+        phoneOTP.reset();
       } else {
         throw new Error(data.message || "Form submission failed.");
       }
@@ -77,6 +149,9 @@ export default function Contact() {
 
   return (
     <div className="main contact-margin-top" id="contact">
+      {/* Toast notification */}
+      <Toast message={toast} onClose={() => setToast("")} />
+      
       <div className="contact-div-main">
         <div className="contact-header">
           <h1 className={isDark ? "dark-mode contact-title" : "contact-title"}>
@@ -94,6 +169,7 @@ export default function Contact() {
             )}
 
             <form onSubmit={handleFormSubmit} className="contact-form">
+              {/* Name Field */}
               <div className="form-group">
                 <label className="form-label">
                   Name <span className="required">*</span>
@@ -103,37 +179,167 @@ export default function Contact() {
                   name="name"
                   placeholder="Enter your name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={handleChange}
                   required
                   className="form-input"
                 />
               </div>
+
+              {/* Email Field with OTP */}
               <div className="form-group">
                 <label className="form-label">
-                  Email <span className="optional">(optional)</span>
+                  Email <span className="optional">(Requires verification)</span>
                 </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email address"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="form-input"
-                />
+                <div className="input-with-button">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`form-input ${formData.email && !validateEmail(formData.email) ? 'invalid' : ''} ${emailOTP.verified ? 'verified' : ''}`}
+                  />
+                  {formData.email && validateEmail(formData.email) && !emailOTP.verified && (
+                    <>
+                      {!emailOTP.otpSent && (
+                        <button 
+                          type="button" 
+                          onClick={() => emailOTP.requestOTP(formData.email)}
+                          className="verification-button"
+                        >
+                          Verify
+                        </button>
+                      )}
+                      {emailOTP.otpSent && emailOTP.cooldown > 0 && (
+                        <button 
+                          disabled
+                          className="verification-button disabled"
+                        >
+                          Wait {emailOTP.cooldown}s
+                        </button>
+                      )}
+                      {emailOTP.otpSent && emailOTP.cooldown === 0 && (
+                        <button 
+                          type="button" 
+                          onClick={() => emailOTP.requestOTP(formData.email)}
+                          className="verification-button"
+                        >
+                          Resend OTP
+                        </button>
+                      )}
+                    </>
+                  )}
+                  {emailOTP.verified && (
+                    <span className="verified-badge">
+                      <i className="fas fa-check-circle"></i> Verified
+                    </span>
+                  )}
+                </div>
+                {formData.email && !validateEmail(formData.email) && (
+                  <p className="validation-error">Please enter a valid email address</p>
+                )}
+                {emailOTP.showOTPInput && (
+                  <div className="otp-container">
+                    <input
+                      type="text"
+                      placeholder="Enter 6-digit OTP sent to your email"
+                      value={emailOTP.userOTP}
+                      onChange={(e) => emailOTP.setUserOTP(e.target.value)}
+                      className="otp-input"
+                      maxLength={6}
+                    />
+                    <button 
+                      type="button" 
+                      onClick={emailOTP.verifyOTP}
+                      className="otp-button"
+                    >
+                      Submit OTP
+                    </button>
+                  </div>
+                )}
+                {emailOTP.error && (
+                  <p className="validation-error">{emailOTP.error}</p>
+                )}
               </div>
+
+              {/* Phone Field with OTP */}
               <div className="form-group">
                 <label className="form-label">
-                  Phone Number <span className="optional">(optional)</span>
+                  Phone Number <span className="optional">(Requires verification)</span>
                 </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Enter your phone number"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="form-input"
-                />
+                <div className="input-with-button">
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter your phone number (10 digits)"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={`form-input ${formData.phone && !validatePhone(formData.phone) ? 'invalid' : ''} ${phoneOTP.verified ? 'verified' : ''}`}
+                  />
+                  {formData.phone && validatePhone(formData.phone) && !phoneOTP.verified && (
+                    <>
+                      {!phoneOTP.otpSent && (
+                        <button 
+                          type="button" 
+                          onClick={() => phoneOTP.requestOTP(formData.phone)}
+                          className="verification-button"
+                        >
+                          Verify
+                        </button>
+                      )}
+                      {phoneOTP.otpSent && phoneOTP.cooldown > 0 && (
+                        <button 
+                          disabled
+                          className="verification-button disabled"
+                        >
+                          Wait {phoneOTP.cooldown}s
+                        </button>
+                      )}
+                      {phoneOTP.otpSent && phoneOTP.cooldown === 0 && (
+                        <button 
+                          type="button" 
+                          onClick={() => phoneOTP.requestOTP(formData.phone)}
+                          className="verification-button"
+                        >
+                          Resend OTP
+                        </button>
+                      )}
+                    </>
+                  )}
+                  {phoneOTP.verified && (
+                    <span className="verified-badge">
+                      <i className="fas fa-check-circle"></i> Verified
+                    </span>
+                  )}
+                </div>
+                {formData.phone && !validatePhone(formData.phone) && (
+                  <p className="validation-error">Please enter a valid 10-digit phone number</p>
+                )}
+                {phoneOTP.showOTPInput && (
+                  <div className="otp-container">
+                    <input
+                      type="text"
+                      placeholder="Enter 6-digit OTP sent to your phone"
+                      value={phoneOTP.userOTP}
+                      onChange={(e) => phoneOTP.setUserOTP(e.target.value)}
+                      className="otp-input"
+                      maxLength={6}
+                    />
+                    <button 
+                      type="button" 
+                      onClick={phoneOTP.verifyOTP}
+                      className="otp-button"
+                    >
+                      Submit OTP
+                    </button>
+                  </div>
+                )}
+                {phoneOTP.error && (
+                  <p className="validation-error">{phoneOTP.error}</p>
+                )}
               </div>
+
+              {/* Message Field */}
               <div className="form-group">
                 <label className="form-label">
                   Message <span className="required">*</span>
@@ -142,13 +348,18 @@ export default function Contact() {
                   name="message"
                   placeholder="Write your message here..."
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={handleChange}
                   required
                   className="form-input"
                   rows="6"
                 />
               </div>
-              <button type="submit" className="main-button" disabled={loading}>
+
+              <button 
+                type="submit" 
+                className="main-button" 
+                disabled={loading || (formData.email && !emailOTP.verified) || (formData.phone && !phoneOTP.verified)}
+              >
                 {loading ? "Sending..." : "Send Message"}
               </button>
 

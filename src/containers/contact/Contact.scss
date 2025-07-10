@@ -362,3 +362,160 @@ textarea.form-input {
     color: #8b8b8b;
   }
 }
+
+/* Validation styles */
+.input-with-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.form-input.invalid {
+  border-color: #e74c3c !important;
+  background-color: rgba(231, 76, 60, 0.05);
+}
+
+.form-input.verified {
+  border-color: #2ecc71 !important;
+  background-color: rgba(46, 204, 113, 0.05);
+}
+
+.validation-error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.verification-button {
+  padding: 8px 15px;
+  background-color: #4dabf7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #228be6;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.verified-badge {
+  display: flex;
+  align-items: center;
+  color: #2ecc71;
+  font-weight: 500;
+  font-size: 14px;
+
+  i {
+    margin-right: 4px;
+  }
+}
+
+.otp-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.otp-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: center;
+
+  &:focus {
+    border-color: #4dabf7;
+    outline: none;
+  }
+}
+
+.otp-button {
+  padding: 8px 15px;
+  background-color: #4dabf7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #228be6;
+  }
+}
+
+/* Override for disabled send button */
+.main-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+
+  &:hover {
+    transform: none;
+    background-color: #ccc;
+  }
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: #222;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 6px;
+  z-index: 9999;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  animation: slideIn 0.3s ease;
+
+  button {
+    background: none;
+    border: none;
+    color: #fff;
+    margin-left: 18px;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Additional styles for verification buttons */
+.verification-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: #ccc;
+    transform: none;
+  }
+}
