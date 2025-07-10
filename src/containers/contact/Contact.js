@@ -271,7 +271,7 @@ export default function Contact() {
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="Enter your phone number (10 digits)"
+                    placeholder="Enter your phone number (optional)"
                     value={formData.phone}
                     onChange={handleChange}
                     className={`form-input ${formData.phone && !validatePhone(formData.phone) ? 'invalid' : ''} ${phoneOTP.verified ? 'verified' : ''}`}
