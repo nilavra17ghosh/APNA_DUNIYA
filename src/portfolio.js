@@ -253,14 +253,14 @@ const talkSection = {
   display: false // Set false to hide this section, defaults to true
 };
 
-// Podcast Section
-const podcastSection = {
-  title: "Podcasts",
-  subtitle: "COMING SOON!",
-  // Keep this section for future implementation
-  // The warning serves as an indicator that this feature is planned
-  display: false // Set to true when ready to display
-};
+// // Podcast Section
+// const podcastSection = {
+//   title: "Podcasts",
+//   subtitle: "COMING SOON!",
+//   // Keep this section for future implementation
+//   // The warning serves as an indicator that this feature is planned
+//   display: false // Set to true when ready to display
+// };
 
 // Resume Section
 const resumeSection = {
