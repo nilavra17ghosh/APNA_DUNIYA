@@ -4,6 +4,7 @@ A modern, responsive portfolio website built with React.js to showcase my profes
 
 ## 🚀 Features
 
+- **Dynamic Background** - Animated gradient, dot grid, and blobs for a visually appealing experience
 - **Dark/Light Theme** - Toggle between dark and light modes for comfortable viewing
 - **Responsive Design** - Optimized for all screen sizes (mobile, tablet, desktop)
 - **Dynamic Content** - Easily updateable sections for:
@@ -21,7 +22,7 @@ A modern, responsive portfolio website built with React.js to showcase my profes
 - React.js
 - SCSS for styling
 - React Lottie for animations
-- React Reveal for scroll animations
+- Web3Forms for contact form integration
 - GitHub API integration
 
 ## ⚙️ Setup and Installation
@@ -83,4 +84,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 - Design inspiration from various portfolio templates
 - React.js community for excellent documentation and support
-- GitHub for providing API access for portfolio integration 
+- GitHub for providing API access for portfolio integration
