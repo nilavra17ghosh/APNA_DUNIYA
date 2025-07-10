@@ -188,7 +188,7 @@ export default function Contact() {
               {/* Email Field with OTP */}
               <div className="form-group">
                 <label className="form-label">
-                  Email <span className="optional">(Requires verification)</span>
+                  Email <span className="optional">(Required to get a response)</span>
                 </label>
                 <div className="input-with-button">
                   <input
@@ -265,7 +265,7 @@ export default function Contact() {
               {/* Phone Field with OTP */}
               <div className="form-group">
                 <label className="form-label">
-                  Phone Number <span className="optional">(Requires verification)</span>
+                  Phone Number <span className="optional">(Optional)</span>
                 </label>
                 <div className="input-with-button">
                   <input
