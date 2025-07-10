@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import "./Contact.scss";
 import SocialMedia from "../../components/socialMedia/SocialMedia";
 import { contactInfo } from "../../portfolio";
-// import { Fade } from "react-reveal";
 import email from "../../assets/lottie/email";
 import DisplayLottie from "../../components/displayLottie/DisplayLottie";
 import StyleContext from "../../contexts/StyleContext";
@@ -15,53 +14,65 @@ export default function Contact() {
     phone: "",
     message: ""
   });
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({
+    submitted: false,
+    success: false,
+    message: ""
+  });
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // Validate required fields
     if (!formData.name || !formData.message) {
       alert("Please fill in all required fields (Name and Message).");
+      setLoading(false);
       return;
     }
 
-    // Construct the email body
-    const emailBody = `
-Name: ${formData.name}
-${formData.email ? `Email: ${formData.email}` : ''}
-${formData.phone ? `Phone: ${formData.phone}` : ''}
-
-Message:
-${formData.message}
-    `;
-
-    // Try opening the email client
     try {
-      const mailtoUrl = `mailto:${contactInfo.email_address}?subject=Contact from ${formData.name}&body=${encodeURIComponent(emailBody)}`;
-      window.location.href = mailtoUrl;
-      
-      // Mark as submitted and show success message
-      setFormSubmitted(true);
-      
-      // Reset form after a delay
-      setTimeout(() => {
+      const formDataObj = new FormData();
+      formDataObj.append("access_key", "85420a0d-7ad8-47cc-80e1-6ab8d94af337");
+      formDataObj.append("name", formData.name);
+      if (formData.email) formDataObj.append("email", formData.email);
+      if (formData.phone) formDataObj.append("phone", formData.phone);
+      formDataObj.append("message", formData.message);
+      formDataObj.append("subject", `Portfolio Contact from ${formData.name}`);
+      formDataObj.append("from_name", "Portfolio Contact Form");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataObj
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus({
+          submitted: true,
+          success: true,
+          message: "✅ Thank you! Your message has been sent successfully."
+        });
         setFormData({
           name: "",
           email: "",
           phone: "",
           message: ""
         });
-      }, 1000);
+      } else {
+        throw new Error(data.message || "Form submission failed.");
+      }
     } catch (err) {
-      console.error("Failed to open email client:", err);
-      alert(`Please email me directly at ${contactInfo.email_address}`);
+      console.error("Form submission error:", err);
+      setSubmitStatus({
+        submitted: true,
+        success: false,
+        message: "❌ Something went wrong. Please try again later or contact me directly."
+      });
+    } finally {
+      setLoading(false);
     }
-  };
-
-  // Direct contact method as a backup
-  const contactDirectly = () => {
-    window.open(`mailto:${contactInfo.email_address}`, '_blank');
   };
 
   return (
@@ -76,12 +87,12 @@ ${formData.message}
           </p>
 
           <div className={isDark ? "dark-mode contact-text-div" : "contact-text-div"}>
-            {formSubmitted && (
-              <div className="submit-success">
-                <p>Thank you for your message! I'll get back to you soon.</p>
+            {submitStatus.submitted && (
+              <div className={`submit-status ${submitStatus.success ? "success" : "error"}`}>
+                <p>{submitStatus.message}</p>
               </div>
             )}
-            
+
             <form onSubmit={handleFormSubmit} className="contact-form">
               <div className="form-group">
                 <label className="form-label">
@@ -89,9 +100,10 @@ ${formData.message}
                 </label>
                 <input
                   type="text"
+                  name="name"
                   placeholder="Enter your name"
                   value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
                   className="form-input"
                 />
@@ -102,9 +114,10 @@ ${formData.message}
                 </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter your email address"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="form-input"
                 />
               </div>
@@ -114,9 +127,10 @@ ${formData.message}
                 </label>
                 <input
                   type="tel"
+                  name="phone"
                   placeholder="Enter your phone number"
                   value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="form-input"
                 />
               </div>
@@ -125,30 +139,25 @@ ${formData.message}
                   Message <span className="required">*</span>
                 </label>
                 <textarea
+                  name="message"
                   placeholder="Write your message here..."
                   value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
                   className="form-input"
                   rows="6"
                 />
               </div>
-              <div className="button-group">
-                <button type="submit" className="main-button">
-                  Send Message
-                </button>
-                <button type="button" onClick={contactDirectly} className="alt-button">
-                  Contact Directly
-                </button>
-              </div>
-              
-              {/* Fallback contact info */}
+              <button type="submit" className="main-button" disabled={loading}>
+                {loading ? "Sending..." : "Send Message"}
+              </button>
+
               <div className="email-fallback">
                 <p>Or reach me at:</p>
                 <div className="contact-info">
                   <span className="contact-method">
                     <i className="fas fa-envelope"></i> Email:
-                  </span> 
+                  </span>
                   <a href={`mailto:${contactInfo.email_address}`} className="contact-value">
                     {contactInfo.email_address}
                   </a>

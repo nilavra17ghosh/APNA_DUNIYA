@@ -11,23 +11,23 @@ This portfolio is configured to use [Web3Forms](https://web3forms.com/) to handl
 
 ## Current Configuration
 
-The contact form is set up with Web3Forms using an environment variable for security. The access key is stored in the `.env` file:
+The contact form is already set up with Web3Forms. It's using the following access key:
 
 ```
-REACT_APP_WEB3FORMS_ACCESS_KEY = "your-web3forms-access-key"
+access_key: "85420a0d-7ad8-47cc-80e1-6ab8d94af337"
 ```
 
 ## Customization
 
-To use your own Web3Forms account:
+If you want to use your own Web3Forms account:
 
 1. Sign up for a free account at [Web3Forms.com](https://web3forms.com/)
 2. Verify your email address
 3. Copy your API key from the dashboard
-4. Update the access key in your `.env` file:
+4. Replace the existing access key in `src/containers/contact/Contact.js`
 
-```
-REACT_APP_WEB3FORMS_ACCESS_KEY = "your-new-access-key"
+```javascript
+formDataObj.append("access_key", "YOUR_NEW_ACCESS_KEY");
 ```
 
 ## Form Fields
@@ -48,39 +48,6 @@ After making any changes to the form or access key:
 3. Verify that the success message is displayed to the user
 
 ## Troubleshooting
-
-If you're experiencing issues with the contact form:
-
-### Common Issues
-
-1. **Emails Not Being Received**
-   - Check your spam/junk folder
-   - Verify that your access key is valid and active in your Web3Forms dashboard
-   - Confirm that the email address associated with your Web3Forms account is correct
-
-2. **Error Messages During Submission**
-   - Check your browser console for detailed error messages
-   - Verify your internet connection
-   - Make sure your Web3Forms account is active and not exceeding free tier limits
-
-3. **"An unexpected error occurred" Message**
-   - This could indicate an issue with the Web3Forms API or your API key
-   - Try regenerating your API key in the Web3Forms dashboard
-   - Ensure your `.env` file contains the correct access key
-   - Try submitting with minimal form data (just name and message) to isolate the issue
-
-### Additional Debugging
-
-You can add this code temporarily to your Contact.js file to help debug:
-
-```javascript
-// At the beginning of the handleFormSubmit function:
-console.log("Environment variables:", {
-  accessKey: process.env.REACT_APP_WEB3FORMS_ACCESS_KEY ? 
-    "Exists (first 5 chars): " + process.env.REACT_APP_WEB3FORMS_ACCESS_KEY.substring(0, 5) : 
-    "Missing"
-});
-```
 
 If submissions aren't coming through:
 

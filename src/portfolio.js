@@ -135,9 +135,10 @@ const educationInfo = {
       logo: require("./assets/images/iiitLogo.webp"),
       subHeader: "Bachelor of Technology in Electronics and Communication Engineering",
       duration: "July 2023 - Present",
-      desc: "Studying Electronics and Communication Engineering.",
+      desc: "Studying Electronics and Communication Engineering with focus on signal processing and embedded systems.",
       descBullets: [
-        "Coming Soon!"
+        "Participating in research projects in signal processing and embedded systems",
+        "Active member of the Electronics Club and Robotics Interest Group"
       ]
     },
     {
@@ -145,9 +146,10 @@ const educationInfo = {
       logo: require("./assets/images/jnvLogo.webp"),
       subHeader: "High School Diploma",
       duration: "June 2016 - June 2023",
-      desc: "Completed high school education with focus on Science and Mathematics.",
+      desc: "Completed high school education with focus on Science and Mathematics, graduating with distinction.",
       descBullets: [
-        "Coming Soon!"
+        "Secured 95% in PCM (Physics, Chemistry, Mathematics) group in final examinations",
+        "Represented school in national level science exhibitions and competitions"
       ]
     }
   ]
@@ -160,23 +162,15 @@ const techStack = {
   experience: [
     {
       Stack: "Frontend/Design", //Insert stack or technology you have experience in
-      progressPercentage: "85%", //Insert relative proficiency in percentage
-      icon: "fas fa-code" // Font Awesome icon class
+      progressPercentage: "70%" //Insert relative proficiency in percentage
     },
     {
       Stack: "AI/ML",
-      progressPercentage: "75%",
-      icon: "fas fa-brain" // Font Awesome icon class for AI
+      progressPercentage: "60%"
     },
     {
       Stack: "Programming",
-      progressPercentage: "80%",
-      icon: "fas fa-laptop-code" // Font Awesome icon class for programming
-    },
-    {
-      Stack: "UI/UX Design",
-      progressPercentage: "70%",
-      icon: "fas fa-pencil-ruler" // Font Awesome icon class for design
+      progressPercentage: "60%"
     }
   ],
   displayCodersrank: false // Set true to display codersrank badges section need to changes your username in src/containers/skillProgress/skillProgress.js:17:62, defaults to false
@@ -190,7 +184,7 @@ const workExperiences = {
     {
       role: "Research Intern",
       company: "IIT Bombay",
-      companylogo: require("./assets/images/iitbombay.webp"),
+      companylogo: require("./assets/images/facebookLogo.png"),
       date: "June 2025 – Present",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       descBullets: [
@@ -259,14 +253,14 @@ const talkSection = {
   display: false // Set false to hide this section, defaults to true
 };
 
-// // Podcast Section
-// const podcastSection = {
-//   title: "Podcasts",
-//   subtitle: "COMING SOON!",
-//   // Keep this section for future implementation
-//   // The warning serves as an indicator that this feature is planned
-//   display: false // Set to true when ready to display
-// };
+// Podcast Section
+const podcastSection = {
+  title: "Podcasts",
+  subtitle: "COMING SOON!",
+  // Keep this section for future implementation
+  // The warning serves as an indicator that this feature is planned
+  display: false // Set to true when ready to display
+};
 
 // Resume Section
 const resumeSection = {
