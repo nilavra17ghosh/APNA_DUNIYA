@@ -1,4 +1,4 @@
-# Personal Portfolio Website
+# APNA_DUNIYA
 
 A modern, responsive portfolio website built with React.js to showcase my professional journey, skills, and projects.
 
@@ -28,8 +28,8 @@ A modern, responsive portfolio website built with React.js to showcase my profes
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/nilavra17ghosh/Basic_Portfolio.git
-   cd Basic_Portfolio
+   git clone https://github.com/nilavra17ghosh/APNA_DUNIYA.git
+   cd APNA_DUNIYA
    ```
 
 2. Install dependencies:
